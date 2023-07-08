@@ -66,6 +66,43 @@ func TestColorize(t *testing.T) {
 	}
 }
 
+func TestAll(t *testing.T) {
+	scenarios := []struct {
+		Color          string
+		ExpectedOutput string
+	}{
+		{Color: Bold, ExpectedOutput: "\033[1mtest-TEST\033[0m"},
+		{Color: Underline, ExpectedOutput: "\033[4mtest-TEST\033[0m"},
+		{Color: Black, ExpectedOutput: "\033[30mtest-TEST\033[0m"},
+		{Color: Red, ExpectedOutput: "\033[31mtest-TEST\033[0m"},
+		{Color: Green, ExpectedOutput: "\033[32mtest-TEST\033[0m"},
+		{Color: Yellow, ExpectedOutput: "\033[33mtest-TEST\033[0m"},
+		{Color: Blue, ExpectedOutput: "\033[34mtest-TEST\033[0m"},
+		{Color: Purple, ExpectedOutput: "\033[35mtest-TEST\033[0m"},
+		{Color: Cyan, ExpectedOutput: "\033[36mtest-TEST\033[0m"},
+		{Color: Gray, ExpectedOutput: "\033[37mtest-TEST\033[0m"},
+		{Color: White, ExpectedOutput: "\033[97mtest-TEST\033[0m"},
+		{Color: BlackBackground, ExpectedOutput: "\033[40mtest-TEST\033[0m"},
+		{Color: RedBackground, ExpectedOutput: "\033[41mtest-TEST\033[0m"},
+		{Color: GreenBackground, ExpectedOutput: "\033[42mtest-TEST\033[0m"},
+		{Color: YellowBackground, ExpectedOutput: "\033[43mtest-TEST\033[0m"},
+		{Color: BlueBackground, ExpectedOutput: "\033[44mtest-TEST\033[0m"},
+		{Color: PurpleBackground, ExpectedOutput: "\033[45mtest-TEST\033[0m"},
+		{Color: CyanBackground, ExpectedOutput: "\033[46mtest-TEST\033[0m"},
+		{Color: GrayBackground, ExpectedOutput: "\033[47mtest-TEST\033[0m"},
+		{Color: WhiteBackground, ExpectedOutput: "\033[107mtest-TEST\033[0m"},
+	}
+	for _, scenario := range scenarios {
+		t.Run(scenario.Color, func(t *testing.T) {
+			output := All(scenario.Color, "test", "-", "TEST")
+			if output != scenario.ExpectedOutput {
+				t.Errorf("expected %s, got %s", scenario.ExpectedOutput, output)
+			}
+		})
+	}
+
+}
+
 func TestIn(t *testing.T) {
 	scenarios := []struct {
 		Func           func(any) string

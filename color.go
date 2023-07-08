@@ -73,6 +73,34 @@ func Colorize(color string, s any) string {
 	}
 }
 
+// All wraps a given messages in a given color.
+//
+// Example:
+//
+//	println(color.All(color.Red, "This is ", "red"))
+func All(color string, strs ...any) string {
+    res := ""
+
+    if enabled {
+        res += color
+    }
+
+    for _, s := range strs {
+        switch s.(type) {
+        case string:
+            res += s.(string)
+        default:
+            res += fmt.Sprint(s)
+        }
+    }
+
+    if enabled {
+        res += Reset
+    }
+
+    return res
+}
+
 // Ize is an alias for the Colorize function
 //
 // Example:
